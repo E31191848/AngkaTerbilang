@@ -29,9 +29,10 @@
                 <div class="col-12 col-md-6">
                     <form action="" method="post" id="terbilang">
                         <h1 class="cover-heading">Input Angka</h1>
-                        <textarea autofocus cols="30" rows="10" type="text" name="angkaTerbilang" id="angkaTerbilang" class="d-flex border border-light rounded w-100 px-3 py-1 bg-my font-larger"></textarea>
+                        <textarea autofocus cols="30" rows="10" type="text" name="input" id="input" class="d-flex border border-light rounded w-100 px-3 py-1 bg-my font-larger"></textarea>
+                        <input type="text" name="angkaTerbilang" id="angkaTerbilang" class="d-none">
                         <p class="lead mt-3">
-                        <button type="button" id="clean" class="btn btn-lg btn-secondary btn-block pt-0 pb-1 rounded">Clean</button>
+                            <button type="button" id="clean" class="btn btn-lg btn-secondary btn-block pt-0 pb-1 rounded">Clean</button>
                         </p>
                     </form>
                 </div>
@@ -45,7 +46,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-    <script>$("#clean").click(function(){$("#angkaTerbilang").val("").focus(),$("#output").html("").show()}),$("#copy").click(function(){var a=document.createElement("textarea");document.body.appendChild(a),a.value=$("#output").val(),a.select(),document.execCommand("copy"),document.body.removeChild(a)}),$("#angkaTerbilang").keyup(function(){var a=$("#angkaTerbilang").val().replace(/[^0-9\-]/,"");$("#angkaTerbilang").val(a),$.ajax({type:"POST",url:"./api/angkaTerbilang.php",data:$("#terbilang").serialize(),success:function(a){$("#output").html(a).show()}})});</script>
+    <script>function formatRupiah(t,a){var e=(t=t.replace(/^0+/,"").toString()).replace(/[^,\d]/g,"").toString().split(","),n=e[0].length%3,l=e[0].substr(0,n),u=e[0].substr(n).match(/\d{3}/gi);return u&&(separator=n?".":"",l+=separator+u.join(".")),l=null!=e[1]?l+","+e[1]:l,null==a?l:l?""+l:""}$("#clean").click(function(){$("#input").val("").focus(),$("#output").html("").show()}),$("#copy").click(function(){var t=document.createElement("textarea");document.body.appendChild(t),t.value=$("#output").val(),t.select(),document.execCommand("copy"),document.body.removeChild(t)}),$("#input").keyup(function(){var t=$("#input").val().replace(/[^0-9\-]/,"");$("#input").val(t),$("#input").val(formatRupiah(this.value,"")),0==$("#input").val().length&&$("#input").val(0);var a=$("#input").val().replace(/\./g,"").toString();$("#angkaTerbilang").val(a),$.ajax({type:"POST",url:"./api/angkaTerbilang.php",data:$("#terbilang").serialize(),success:function(t){$("#output").html(t).show()}})});</script>
 </body>
 
 </html>

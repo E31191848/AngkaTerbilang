@@ -10,7 +10,7 @@ final class Terbilang
         $huruf = array("", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas");
         $temp = "";
         if ($nilai < 12) {
-            $temp = " " . $huruf[$nilai];
+            !empty($huruf[$nilai]) ? $temp = " " . $huruf[$nilai] : '';
         } else if ($nilai < 20) {
             $temp = $this->penyebut($nilai - 10) . " Belas";
         } else if ($nilai < 100) {
@@ -43,6 +43,8 @@ final class Terbilang
             $temp = $this->penyebut(gmp_strval(gmp_div($nilai, gmp_pow(10, 30)))) . " Noniliun" . $this->penyebut(gmp_strval(gmp_mod($nilai, gmp_pow(10, 30))));
         } else if ($nilai < gmp_strval(gmp_pow(10, 36))) {
             $temp = $this->penyebut(gmp_strval(gmp_div($nilai, gmp_pow(10, 33)))) . " Desiliun" . $this->penyebut(gmp_strval(gmp_mod($nilai, gmp_pow(10, 33))));
+        } else{
+            $temp = 'Not Defined';
         }
         return $temp;
     }
